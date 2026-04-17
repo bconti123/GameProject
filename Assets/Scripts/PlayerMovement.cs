@@ -8,6 +8,7 @@ public class PlayerMovement : MonoBehaviour
     public GameObject winText;
     public GameObject loseText;
     public GameObject restartButton;
+    private bool gameOver = false;
 
     void Start()
     {
@@ -16,6 +17,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
+        if (gameOver) return;
         float x = Input.GetAxis("Horizontal");
         float y = Input.GetAxis("Vertical");
 
@@ -25,16 +27,18 @@ public class PlayerMovement : MonoBehaviour
     }
     void OnTriggerEnter2D(Collider2D other)
     {
+        if (gameOver) return;
+
         if (other.gameObject.name == "Goal")
         {
-            Debug.Log("You Win!");
+            gameOver = true;
             winText.SetActive(true);
             restartButton.SetActive(true);
             rb.linearVelocity = Vector2.zero;
         }
-        if (other.gameObject.name == "Enemy")
+        if (other.CompareTag("Red"))
         {
-            Debug.Log("You Lose!");
+            gameOver = true;
             loseText.SetActive(true);
             restartButton.SetActive(true);
             rb.linearVelocity = Vector2.zero;
