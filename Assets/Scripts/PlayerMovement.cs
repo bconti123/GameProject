@@ -29,7 +29,7 @@ public class PlayerMovement : MonoBehaviour
     {
         if (gameOver) return;
 
-        if (other.gameObject.name == "Goal")
+        if (other.CompareTag("Green"))
         {
             gameOver = true;
             winText.SetActive(true);
