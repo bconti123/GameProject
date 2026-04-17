@@ -6,6 +6,7 @@ public class PlayerMovement : MonoBehaviour
     public float speed = 5f;
     private Rigidbody2D rb;
     public GameObject winText;
+    public GameObject loseText;
     public GameObject restartButton;
 
     void Start()
@@ -28,6 +29,13 @@ public class PlayerMovement : MonoBehaviour
         {
             Debug.Log("You Win!");
             winText.SetActive(true);
+            restartButton.SetActive(true);
+            rb.linearVelocity = Vector2.zero;
+        }
+        if (other.gameObject.name == "Enemy")
+        {
+            Debug.Log("You Lose!");
+            loseText.SetActive(true);
             restartButton.SetActive(true);
             rb.linearVelocity = Vector2.zero;
         }   
