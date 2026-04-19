@@ -38,15 +38,19 @@ public class PlayerMovement : MonoBehaviour
         }
         if (other.CompareTag("Red"))
         {
-            gameOver = true;
-            loseText.SetActive(true);
+            // gameOver = true;
+            // loseText.SetActive(true);
+            var gameTimer = FindObjectOfType<GameTimer>();
+            gameTimer.LoseGame();
             restartButton.SetActive(true);
             rb.linearVelocity = Vector2.zero;
+
         }   
     }
 
     public void RestartGame()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 }
