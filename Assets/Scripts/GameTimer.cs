@@ -7,6 +7,7 @@ public class GameTimer : MonoBehaviour
     public TMP_Text timerText;
     public GameObject winText;
     public GameObject loseText;
+    public GameObject restartButton;
 
     private bool gameEnded = false;
 
@@ -22,6 +23,7 @@ public class GameTimer : MonoBehaviour
             timeLeft = 0;
             timerText.text = "Time: 0";
             winText.SetActive(true);
+            restartButton.SetActive(true);
             gameEnded = true;
             Time.timeScale = 0f;
         }
@@ -32,6 +34,7 @@ public class GameTimer : MonoBehaviour
         if (gameEnded) return;
 
         loseText.SetActive(true);
+        restartButton.SetActive(true);
         gameEnded = true;
         Time.timeScale = 0f;
     }
