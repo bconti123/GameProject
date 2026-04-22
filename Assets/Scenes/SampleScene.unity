@@ -787,6 +787,7 @@ MonoBehaviour:
   timerText: {fileID: 2059679868}
   winText: {fileID: 1580034266}
   loseText: {fileID: 1535473477}
+  restartButton: {fileID: 1213962121}
 --- !u!4 &792995923
 Transform:
   m_ObjectHideFlags: 0
