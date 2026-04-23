@@ -33,17 +33,40 @@ public class EnemySpawner : MonoBehaviour
     }
     void SpawnEnemy()
     {
-        Vector2 randomPosition = new Vector2(
-            Random.Range(minX, maxX),
-            Random.Range(minY, maxY)
-        );
+        // Vector2 randomPosition = new Vector2(
+        //     Random.Range(minX, maxX),
+        //     Random.Range(minY, maxY)
+        // );
 
-        GameObject enemy = Instantiate(enemyPrefab, randomPosition, Quaternion.identity);
+        // GameObject enemy = Instantiate(enemyPrefab, randomPosition, Quaternion.identity);
+
+        Vector2 spawnPosition = GetRandomEdgePosition();
+
+        GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
 
         EnemyFollow enemyFollow = enemy.GetComponent<EnemyFollow>();
         if (enemyFollow != null)
         {
             enemyFollow.target = player;
+        }
+    }
+
+    Vector2 GetRandomEdgePosition()
+    {
+        int edge = Random.Range(0, 4);
+
+        switch (edge)
+        {
+            case 0: // Top
+                return new Vector2(Random.Range(minX, maxX), maxY);
+            case 1: // Bottom
+                return new Vector2(Random.Range(minX, maxX), minY);
+            case 2: // Left
+                return new Vector2(minX, Random.Range(minY, maxY));
+            case 3: // Right
+                return new Vector2(maxX, Random.Range(minY, maxY));
+            default:
+                return Vector2.zero;
         }
     }
 }
