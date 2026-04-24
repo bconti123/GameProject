@@ -13,6 +13,8 @@ public class EnemySpawner : MonoBehaviour
 
     public float speedIncrease = 0.2f;
 
+    public float minDistanceFromPlayer = 2.5f;
+
     void Start()
     {
         InvokeRepeating(nameof(SpawnEnemy), 1f, spawnInterval);
@@ -21,7 +23,7 @@ public class EnemySpawner : MonoBehaviour
 
     void SpawnEnemy()
     {
-        Vector2 spawnPosition = GetRandomEdgePosition();
+        Vector2 spawnPosition = GetValidSpawnPosition();
 
         GameObject enemy = Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
 
@@ -30,6 +32,25 @@ public class EnemySpawner : MonoBehaviour
         {
             enemyFollow.target = player;
         }
+    }
+
+    Vector2 GetValidSpawnPosition()
+    {
+        Vector2 spawnPosition;
+        int maxAttempts = 10;
+
+        for (int i = 0; i < maxAttempts; i++)
+        {
+            spawnPosition = GetRandomEdgePosition();
+
+            if (Vector2.Distance(spawnPosition, player.position) >= minDistanceFromPlayer)
+            {
+                return spawnPosition;
+            }
+        }
+
+        // fallback (if somehow all attempts fail)
+        return GetRandomEdgePosition();
     }
 
     void IncreaseAllEnemiesSpeed()
